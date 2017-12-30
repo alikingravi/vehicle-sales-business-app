@@ -14,3 +14,10 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(['prefix' => 'api'], function($router)
+{
+    $router->get('vehicles/home', 'VehicleController@index');
+
+    $router->post('vehicles/add', 'VehicleController@createVehicle');
+});
