@@ -17,11 +17,12 @@ class VehicleController extends Controller
     {
         $vehicles = Vehicle::all();
 
-        return response()->json($vehicles);
+        return response()->json($vehicles, 200);
     }
 
     public function createVehicle(Request $request)
     {
+
         $vehicle = Vehicle::create($request->all());
 
         return response()->json($vehicle);

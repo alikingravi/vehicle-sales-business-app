@@ -16,13 +16,14 @@ class CreateSalesTable extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('vehicle_id')->unsigned();
+//            $table->foreign('vehicle_id')->references('id')->on('vehicles');
             $table->decimal('buying_price', 8, 2)->default(0);
             $table->decimal('total_vehicle_cost', 8, 2)->default(0);
             $table->decimal('list_price', 8, 2)->default(0);
             $table->decimal('selling_price', 8, 2)->default(0);
             $table->decimal('profit', 8, 2)->default(0);
-            $table->string('additional_notes');
-            $table->tinyInteger('sale_complete');
+            $table->longText('additional_notes')->nullable();
+            $table->tinyInteger('sale_complete')->default(0);
             $table->timestamps();
         });
     }
