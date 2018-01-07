@@ -21,3 +21,7 @@ $router->group(['prefix' => 'api'], function($router)
 
     $router->post('vehicles/add', 'VehicleController@createVehicle');
 });
+
+
+// Register
+$router->post('register', 'AuthController@register');
