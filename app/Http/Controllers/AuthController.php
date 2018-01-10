@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -35,13 +36,11 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $this->validate($request, [
-            'email' => 'required|string|email|max:255',
-            'password' => 'required'
-        ]);
+//        $this->validate($request, [
+//            'email' => 'required|string|email|max:255',
+//            'password' => 'required'
+//        ]);
+        return 'Logged in successfully';
 
-        if ($request->input('email')) {
-
-        }
     }
 }
