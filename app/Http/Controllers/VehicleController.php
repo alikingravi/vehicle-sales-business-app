@@ -35,7 +35,7 @@ class VehicleController extends Controller
     public function createVehicle(Request $request)
     {
         $vehicle = Vehicle::create([
-            'user_id' => Auth::user()->id,
+            'user_id' => 1,
             'registration' => $request->input('registration'),
             'manufacturer' => $request->input('manufacturer'),
             'model' => $request->input('model'),

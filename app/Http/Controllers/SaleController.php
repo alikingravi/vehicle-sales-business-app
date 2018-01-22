@@ -27,15 +27,28 @@ class SaleController extends Controller
         ]);
     }
 
-    public function createSale(Request $request, CostHelper $costHelper, AccountsHelper $accountsHelper, $vehicleId)
+    public function createSale(Request $request, $vehicleId)
+    {
+        $sale = Sale::create([
+            'vehicle_id' => $vehicleId,
+            'user_id' => 1,
+            'buying_price' => $request->input('buying_price')
+        ]);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Sale has been created successfully',
+            'data' => $sale
+        ]);
+    }
+
+    public function updateSale(Request $request, CostHelper $costHelper, AccountsHelper $accountsHelper, $vehicleId)
     {
         $totalVehicleCost = $costHelper->getTotalVehicleCost($vehicleId);
-
         $totalCost = bcadd($request->input('buying_price'), $totalVehicleCost, 2);
-
         $profit = bcsub($request->input('selling_price'), $totalCost, 2);
 
-        $sale = Sale::create([
+        $sale = Sale::where('vehicle_id', $vehicleId)->update([
             'vehicle_id' => $vehicleId,
             'buying_price' => $request->input('buying_price'),
             'total_vehicle_cost' => $totalVehicleCost,
@@ -46,13 +59,17 @@ class SaleController extends Controller
             'sale_complete' => $request->input('sale_complete')
         ]);
 
-        $accounts = $accountsHelper->updateAccounts(1, $profit, $totalCost, $request->input('selling_price'));
+//        if ((float)$request->input('selling_price') !== 0.00) {
+//            $accounts = $accountsHelper->updateAccounts(1, $profit, $totalCost, $request->input('selling_price'));
+//        } else {
+//            $accounts = [];
+//        }
 
         return response()->json([
             'status' => 200,
-            'message' => 'Sale has been created successfully',
-            'data' => $sale,
-            'accounts' => $accounts
+            'message' => 'Sale has been updated successfully',
+            'data' => $sale
         ]);
+
     }
 }

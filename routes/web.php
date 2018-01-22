@@ -26,8 +26,11 @@ $router->group(['prefix' => 'api'], function($router)
 
     // Sales
     $router->post('sale/create/{vehicleId}', 'SaleController@createSale');
-});
+    $router->post('sale/update/{vehicleId}', 'SaleController@updateSale');
 
+    // Accounts
+//    $router->get('accounts/calculate/{userId}');
+});
 
 // Register
 $router->post('register', 'AuthController@register');

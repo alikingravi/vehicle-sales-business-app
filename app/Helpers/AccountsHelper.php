@@ -8,8 +8,8 @@
 
 namespace App\Helpers;
 
-
 use App\Models\Account;
+use App\Models\Sale;
 
 class AccountsHelper
 {
@@ -33,5 +33,17 @@ class AccountsHelper
             'status' => 200,
             'message' => 'User Accounts have been updated'
         ]);
+    }
+
+    public function calculateAccounts($userId)
+    {
+        $sales = Sale::where('user_id', $userId);
+
+        $info = [];
+        $saleData = [];
+        foreach ($sales as $sale) {
+            $info[] = $sale;
+        }
+        dd($info);
     }
 }
