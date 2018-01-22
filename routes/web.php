@@ -17,13 +17,19 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'api'], function($router)
 {
+    // Vehicles
     $router->get('vehicles/home', 'VehicleController@index');
+    $router->post('vehicles/create', 'VehicleController@createVehicle');
 
-    $router->post('vehicles/add', 'VehicleController@createVehicle');
+    // Costs
+    $router->post('cost/create/{vehicleId}', 'CostController@addCosts');
+
+    // Sales
+    $router->post('sale/create/{vehicleId}', 'SaleController@createSale');
 });
 
 
 // Register
 $router->post('register', 'AuthController@register');
-
+// Login
 $router->post('login', 'AuthController@login');
