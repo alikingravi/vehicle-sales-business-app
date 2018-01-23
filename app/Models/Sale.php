@@ -13,4 +13,14 @@ use Illuminate\Database\Eloquent\Model;
 class Sale extends Model
 {
     protected $guarded = ['id'];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function vehicle()
+    {
+        return $this->belongsTo('App\Models\Vehicle');
+    }
 }

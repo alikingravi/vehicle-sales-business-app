@@ -35,4 +35,19 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password'
     ];
+
+    public function vehicles()
+    {
+        return $this->hasMany('App\Models\Vehicle');
+    }
+
+    public function sales()
+    {
+        return $this->hasMany('App\Models\Sale');
+    }
+
+    public function account()
+    {
+        return $this->hasOne('App\Models\Account');
+    }
 }

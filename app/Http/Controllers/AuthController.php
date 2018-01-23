@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use App\Models\User;
 use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\Request;
@@ -10,11 +11,21 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+
+    /**
+     * AuthController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth', ['only' => 'login']);
     }
 
+    /**
+     * Registers a user and creates an account balance for them
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function register(Request $request)
     {
         $this->validate($request, [
@@ -29,23 +40,35 @@ class AuthController extends Controller
             'password' => (new BcryptHasher())->make($request->input('password')),
         ]);
 
+        if (count($user) > 0) {
+            $account = Account::create([
+                'user_id' => $user->id,
+                'total_profit_made' => 0,
+                'total_cash_invested' => 0,
+                'my_profit' => 0,
+                'revenue' => 0
+            ]);
+        }
+
         return response()->json([
             'user' => $user,
-            'message' => 'User has been created',
+            'account' => $account,
+            'message' => 'User and his account balance has been created'
         ]);
     }
 
-    public function login(Request $request)
+    /**
+     * Logs in the user
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function login()
     {
-//        $this->validate($request, [
-//            'email' => 'required|string|email|max:255',
-//            'password' => 'required'
-//        ]);
         return response()->json([
             'status' => 200,
             'message' => 'Logged in successfully',
             'data' => Auth::user()
         ]);
-
     }
 }

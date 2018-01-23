@@ -18,18 +18,22 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'api'], function($router)
 {
     // Vehicles
-    $router->get('vehicles/home', 'VehicleController@index');
-    $router->post('vehicles/create', 'VehicleController@createVehicle');
+    $router->get('vehicles/home/{userId}', 'VehicleController@index');
+    $router->post('vehicles/create/{userId}', 'VehicleController@createVehicle');
+    $router->post('vehicles/update/{userId}/{vehicleId}', 'VehicleController@updateVehicle');
 
     // Costs
-    $router->post('cost/create/{vehicleId}', 'CostController@addCosts');
+    $router->get('cost/get/{vehicleId}', 'CostController@index');
+    $router->post('cost/create/{vehicleId}', 'CostController@createCosts');
+    $router->post('cost/update/{vehicleId}', 'CostController@updateCosts');
 
     // Sales
-    $router->post('sale/create/{vehicleId}', 'SaleController@createSale');
+    $router->get('sale/get/{userId}', 'SaleController@index');
+    $router->post('sale/create/{userId}/{vehicleId}', 'SaleController@createSale');
     $router->post('sale/update/{vehicleId}', 'SaleController@updateSale');
 
     // Accounts
-//    $router->get('accounts/calculate/{userId}');
+    $router->get('accounts/calculate/{userId}', 'AccountsController@getAccounts');
 });
 
 // Register

@@ -13,4 +13,9 @@ use Illuminate\Database\Eloquent\Model;
 class Cost extends Model
 {
     protected $guarded = ['id'];
+
+    public function vehicle()
+    {
+        return $this->belongsTo('App\Models\Vehicle');
+    }
 }

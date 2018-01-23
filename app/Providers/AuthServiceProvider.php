@@ -40,9 +40,13 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->app['auth']->viaRequest('api', function ($request) {
             if ($request->input('email')) {
-                $hashedPassword = User::where('email', $request->input('email'))->pluck('password');
-                if ((new BcryptHasher())->check($request->input('password'), $hashedPassword[0])) {
-                    return User::where('email', $request->input('email'))->first();
+                $user = User::where('email', $request->input('email'))->get();
+
+                if (count($user) > 0) {
+                    $hashedPassword = User::where('email', $request->input('email'))->pluck('password');
+                    if ((new BcryptHasher())->check($request->input('password'), $hashedPassword[0])) {
+                        return User::where('email', $request->input('email'))->first();
+                    }
                 }
             }
         });
