@@ -17,6 +17,13 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'api'], function($router)
 {
+    // Auth Check
+    $router->get('authCheck', 'AuthController@checkAuthUser');
+    // Register
+    $router->post('register', 'AuthController@register');
+    // Login
+    $router->post('login', 'AuthController@login');
+
     // Vehicles
     $router->get('vehicles/home/{userId}', 'VehicleController@index');
     $router->post('vehicles/create/{userId}', 'VehicleController@createVehicle');
@@ -35,8 +42,3 @@ $router->group(['prefix' => 'api'], function($router)
     // Accounts
     $router->get('accounts/calculate/{userId}', 'AccountsController@getAccounts');
 });
-
-// Register
-$router->post('register', 'AuthController@register');
-// Login
-$router->post('login', 'AuthController@login');

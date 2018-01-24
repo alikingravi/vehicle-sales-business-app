@@ -20,6 +20,23 @@ class AuthController extends Controller
         $this->middleware('auth', ['only' => 'login']);
     }
 
+    public function checkAuthUser()
+    {
+        $user = Auth::user();
+
+        if (!isset($user)) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'User not logged-in'
+            ]);
+        }
+        return response()->json([
+            'status' => 200,
+            'message' => 'User logged-in',
+            'data' => $user
+        ]);
+    }
+
     /**
      * Registers a user and creates an account balance for them
      *
@@ -40,7 +57,7 @@ class AuthController extends Controller
             'password' => (new BcryptHasher())->make($request->input('password')),
         ]);
 
-        if (count($user) > 0) {
+        if ($user) {
             $account = Account::create([
                 'user_id' => $user->id,
                 'total_profit_made' => 0,
@@ -60,8 +77,8 @@ class AuthController extends Controller
     /**
      * Logs in the user
      *
-     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @internal param Request $request
      */
     public function login()
     {
