@@ -16,7 +16,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-//        $this->middleware('auth', ['only' => 'login']);
+        $this->middleware('auth', ['only' => 'checkAuthUser']);
     }
 
     public function checkAuthUser()
