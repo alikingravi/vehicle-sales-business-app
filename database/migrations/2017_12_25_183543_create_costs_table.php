@@ -26,6 +26,7 @@ class CreateCostsTable extends Migration
             $table->decimal('tyres', 8, 2)->default(0);
             $table->decimal('timing_chain', 8, 2)->default(0);
             $table->decimal('vat', 8, 2)->default(0);
+            $table->decimal('advertisement', 8, 2)->default(0);
             $table->decimal('other_costs', 8, 2)->default(0);
             $table->timestamps();
         });

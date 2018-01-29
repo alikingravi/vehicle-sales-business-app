@@ -15,8 +15,8 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
             $table->integer('vehicle_id')->unsigned();
-//            $table->foreign('vehicle_id')->references('id')->on('vehicles');
             $table->decimal('buying_price', 8, 2)->default(0);
             $table->decimal('total_vehicle_cost', 8, 2)->default(0);
             $table->decimal('list_price', 8, 2)->default(0);

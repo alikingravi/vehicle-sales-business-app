@@ -49,6 +49,7 @@ $factory->define(App\Models\Cost::class, function (Faker\Generator $faker) {
         'tyres' => $faker->randomFloat(2, 4, 6),
         'timing_chain' => $faker->randomFloat(2, 4, 6),
         'vat' => $faker->randomFloat(2, 4, 6),
+        'advertisement' => $faker->randomFloat(2, 4, 6),
         'other_costs' => $faker->randomFloat(2, 4, 6)
     ];
 });

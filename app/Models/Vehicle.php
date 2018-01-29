@@ -13,4 +13,19 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicle extends Model
 {
     protected $guarded = ['id'];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function cost()
+    {
+        return $this->hasOne('App\Models\Cost');
+    }
+
+    public function sale()
+    {
+        return $this->hasOne('App\Models\Sale');
+    }
 }
