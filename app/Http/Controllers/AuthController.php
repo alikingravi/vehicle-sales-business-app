@@ -22,6 +22,7 @@ class AuthController extends Controller
     public function checkAuthUser()
     {
         $user = Auth::user();
+        dd($user);
 
         if (!isset($user)) {
             return response()->json([
