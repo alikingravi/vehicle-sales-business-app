@@ -26,14 +26,17 @@ class AccountsHelper
         $revenue = '';
         $accounts = [];
 
+        // Get all sales completed by user
         $sales = Sale::where('user_id', $userId)
             ->where('sale_complete', 1)
             ->get();
 
+        // Error handling
         if (count($sales) === 0) {
             return false;
         }
 
+        // Calculate sale and profit data
         $profit = [];
         $buyingPrice = [];
         foreach ($sales as $sale) {

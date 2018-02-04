@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class CostController extends Controller
 {
+    /**
+     * CostController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Gets the costs associated with the vehicle
