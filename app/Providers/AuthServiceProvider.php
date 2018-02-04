@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
-use App\User;
+use App\Models\User;
+use Illuminate\Hashing\BcryptHasher;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -31,9 +33,39 @@ class AuthServiceProvider extends ServiceProvider
         // the User instance via an API token or any other method necessary.
 
         $this->app['auth']->viaRequest('api', function ($request) {
-            if ($request->input('api_token')) {
-                return User::where('api_token', $request->input('api_token'))->first();
+            if ($request->header('Authorization')) {
+                $token = explode(' ', $request->header('Authorization'));
+
+                $user = User::where('api_token', $token[1])->first();
+
+                if (!empty($user)) {
+                    $request->request->add([
+                        'user_id' => $user->id
+                    ]);
+                }
+
+                return $user;
             }
         });
+
+
+//        $this->app['auth']->viaRequest('api', function ($request) {
+//            if ($request->input('email')) {
+//                return User::where('email', $request->input('email'))->first();
+//            }
+//        });
+
+//        $this->app['auth']->viaRequest('api', function ($request) {
+//            if ($request->input('email')) {
+//                $user = User::where('email', $request->input('email'))->get();
+//
+//                if (count($user) > 0) {
+//                    $hashedPassword = User::where('email', $request->input('email'))->pluck('password');
+//                    if ((new BcryptHasher())->check($request->input('password'), $hashedPassword[0])) {
+//                        return User::where('email', $request->input('email'))->first();
+//                    }
+//                }
+//            }
+//        });
     }
 }
