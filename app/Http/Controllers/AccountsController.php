@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 class AccountsController extends Controller
 {
     /**
+     * AccountsController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Calculates user accounts info when sales are completed
      *
      * @param AccountsHelper $accountsHelper

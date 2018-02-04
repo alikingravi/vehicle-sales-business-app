@@ -89,6 +89,7 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->input('email'))->first();
 
+        // If user exists, assign them an api_token
         if (!empty($user)) {
             if ((new BcryptHasher())->check($request->input('password'), $user->password)) {
                 $apiToken = base64_encode(str_random(40));

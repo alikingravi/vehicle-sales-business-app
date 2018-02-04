@@ -15,6 +15,14 @@ use Illuminate\Support\Facades\Auth;
 class VehicleController extends Controller
 {
     /**
+     * VehicleController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Gets all vehicles added by the user
      *
      * @param $userId

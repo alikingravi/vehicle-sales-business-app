@@ -12,10 +12,18 @@ use App\Models\Cost;
 
 class CostHelper
 {
+    /**
+     * Returns the total costs associated with a vehicle
+     *
+     * @param $vehicleId
+     * @return string
+     */
     public function getTotalVehicleCost($vehicleId)
     {
+        // Get all costs of vehicle
         $vehicle = Cost::where('vehicle_id', $vehicleId)->first();
 
+        // Add all individual costs using bcmath functions
         $total1 = bcadd($vehicle->car_valet, $vehicle->mot, 2);
         $total2 = bcadd($vehicle->windscreen, $vehicle->dents_scratches, 2);
         $total3 = bcadd($vehicle->oil_filter, $vehicle->fuel_topup, 2);

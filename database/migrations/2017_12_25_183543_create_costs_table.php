@@ -16,7 +16,6 @@ class CreateCostsTable extends Migration
         Schema::create('costs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('vehicle_id')->unsigned();
-//            $table->foreign('vehicle_id')->references('id')->on('vehicles');
             $table->decimal('car_valet', 8, 2)->default(0);
             $table->decimal('mot', 8, 2)->default(0);
             $table->decimal('windscreen', 8, 2)->default(0);

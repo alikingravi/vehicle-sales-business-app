@@ -10,6 +10,14 @@ use Illuminate\Http\Request;
 class SaleController extends Controller
 {
     /**
+     * SaleController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Returns all sales for the user
      *
      * @return \Illuminate\Http\JsonResponse
